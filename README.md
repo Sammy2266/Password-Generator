@@ -10,7 +10,7 @@ A simple and secure password generator built using JavaScript, Python, HTML, and
 
  🛠️ Technologies Used
 - JavaScript (67.9%) - Core functionality
-- Python (25.0%) - Backend logic (if applicable)
+- Python (25.0%) - Backend logic
 - HTML (6.0%) - Structure
 - CSS (1.1%) - Styling
 
@@ -41,7 +41,7 @@ This project is licensed under the MIT License.
 
 ---
 
-Made with ❤️ by [Sammy Macharia](https://github.com/sammy2266)
+Made with ❤️ by [Sam Macharia](https://github.com/sammy2266)
 ```
 
 Let me know if you want any modifications or additional sections! 🚀
