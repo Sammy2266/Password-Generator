@@ -1,9 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PasswordStrengthChecker from "./PasswordStrengthChecker";
 
 function App() {
   const [password, setPassword] = useState("");
   const [length, setLength] = useState(12);
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem("theme") === "dark"
+  );
+
+  // Apply theme on load
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
+
+  const toggleTheme = () => {
+    setDarkMode(!darkMode);
+  };
 
   const generatePassword = (length) => {
     if (length < 6) {
@@ -35,6 +53,16 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white flex items-center justify-center p-4">
       <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-md">
+        {/* Theme Toggle Button */}
+        <div className="flex justify-end">
+          <button
+            onClick={toggleTheme}
+            className="p-2 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-full"
+          >
+            {darkMode ? "🌙 Dark" : "☀️ Light"}
+          </button>
+        </div>
+
         <h1 className="text-2xl font-bold text-center">Password Generator</h1>
 
         <div className="mb-6">
@@ -77,7 +105,7 @@ function App() {
                 Copy
               </button>
             </div>
-            <PasswordStrengthChecker password={password} /> {/* Ensure Strength Checker is here */}
+            <PasswordStrengthChecker password={password} />
           </div>
         )}
       </div>
