@@ -1,16 +1,24 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="light"> <!-- Default to light mode -->
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="yuKWbvYTaV3ehIOTglKFk-gEMHQqeTIu3EvXHU1xfbo" />
-    <link rel='icon' href='icon.png' type='image/x-icon'/>
+    <link rel="icon" href="icon.png" type="image/x-icon" />
     <title>Best Password Generator</title>
+    <script>
+      // Load theme preference from localStorage
+      if (localStorage.getItem("theme") === "dark") {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
   </head>
-  <body>
+  <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-   
-  <a href="https://sammymacharia.vercel.app/">Learn more about the developer</a>
+    
+    <a href="https://sammymacharia.vercel.app/" class="text-blue-500 dark:text-blue-300">
+      Learn more about the developer
+    </a>
   </body>
 </html>
