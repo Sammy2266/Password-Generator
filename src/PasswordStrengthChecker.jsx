@@ -1,50 +1,90 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import ThemeToggle from "./ThemeToggle"; // Import the toggle component
 
-const checkPasswordStrength = (password) => {
-    let strength = 0;
+function App() {
+  const [password, setPassword] = useState("");
+  const [length, setLength] = useState(12);
 
-    if (password.length >= 8) strength += 1;
-    if (password.length >= 12) strength += 1;
-    if (/[a-z]/.test(password)) strength += 1;
-    if (/[A-Z]/.test(password)) strength += 1;
-    if (/[0-9]/.test(password)) strength += 1;
-    if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength += 1;
+  const generatePassword = (length) => {
+    if (length < 6) {
+      alert("Password length should be at least 6 characters.");
+      return;
+    }
 
-    if (strength <= 2) return { label: "Weak", color: "red", width: "33%" };
-    if (strength <= 4) return { label: "Medium", color: "orange", width: "66%" };
-    return { label: "Strong", color: "green", width: "100%" };
-};
+    const lower = "abcdefghijklmnopqrstuvwxyz";
+    const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numbers = "0123456789";
+    const symbols = "!@#$%^&*()_<|+>/";
+    const allChars = lower + upper + numbers + symbols;
 
-const PasswordStrengthChecker = () => {
-    const [password, setPassword] = useState("");
-    const [strength, setStrength] = useState({ label: "", color: "", width: "0%" });
+    let password = [
+      lower[Math.floor(Math.random() * lower.length)],
+      upper[Math.floor(Math.random() * upper.length)],
+      numbers[Math.floor(Math.random() * numbers.length)],
+      symbols[Math.floor(Math.random() * symbols.length)],
+    ];
 
-    const handleChange = (e) => {
-        const newPassword = e.target.value;
-        setPassword(newPassword);
-        setStrength(checkPasswordStrength(newPassword));
-    };
+    for (let i = 4; i < length; i++) {
+      password.push(allChars[Math.floor(Math.random() * allChars.length)]);
+    }
 
-    return (
-        <div className="max-w-sm mx-auto mt-5 p-4 border rounded-lg shadow-lg">
-            <input
-                type="text"
-                className="w-full p-2 border rounded-lg"
-                placeholder="Enter password"
-                value={password}
-                onChange={handleChange}
-            />
-            <div className="relative w-full h-2 mt-2 bg-gray-300 rounded">
-                <div
-                    className="h-2 rounded transition-all duration-300"
-                    style={{ width: strength.width, backgroundColor: strength.color }}
-                ></div>
-            </div>
-            <p className="mt-2 text-sm font-semibold" style={{ color: strength.color }}>
-                {strength.label}
-            </p>
+    password = password.sort(() => Math.random() - 0.5);
+    setPassword(password.join(""));
+  };
+
+  return (
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white flex items-center justify-center p-4">
+      <div className="bg-gray-100 dark:bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-md">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold">Password Generator</h1>
+          <ThemeToggle /> {/* Add Theme Toggle Here */}
         </div>
-    );
-};
 
-export default PasswordStrengthChecker;
+        <div className="mb-6">
+          <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">
+            Password Length: {length}
+          </label>
+          <input
+            type="range"
+            min="6"
+            max="32"
+            value={length}
+            onChange={(e) => setLength(parseInt(e.target.value))}
+            className="w-full"
+          />
+        </div>
+
+        <button
+          onClick={() => generatePassword(length)}
+          className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors"
+        >
+          Generate Password
+        </button>
+
+        {password && (
+          <div className="mt-6">
+            <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">
+              Generated Password:
+            </label>
+            <div className="flex">
+              <input
+                type="text"
+                value={password}
+                readOnly
+                className="w-full p-2 border rounded-l bg-gray-50 dark:bg-gray-700 dark:text-white"
+              />
+              <button
+                onClick={() => navigator.clipboard.writeText(password)}
+                className="bg-gray-200 dark:bg-gray-600 px-4 rounded-r hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default App;
