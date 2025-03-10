@@ -1,19 +1,35 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 function App() {
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
   const [length, setLength] = useState(12);
+  const [strength, setStrength] = useState({ label: "", color: "" });
+
+  const checkPasswordStrength = (password) => {
+    let strength = 0;
+
+    if (password.length >= 8) strength += 1;
+    if (password.length >= 12) strength += 1;
+    if (/[a-z]/.test(password)) strength += 1;
+    if (/[A-Z]/.test(password)) strength += 1;
+    if (/[0-9]/.test(password)) strength += 1;
+    if (/[!@#$%^&*()_<|+>/]/.test(password)) strength += 1;
+
+    if (strength <= 2) return { label: "Weak", color: "red" };
+    if (strength <= 4) return { label: "Medium", color: "orange" };
+    return { label: "Strong", color: "green" };
+  };
 
   const generatePassword = (length) => {
     if (length < 6) {
       alert("Password length should be at least 6 characters.");
       return;
     }
-    
-    const lower = 'abcdefghijklmnopqrstuvwxyz';
-    const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const numbers = '0123456789';
-    const symbols = '!@#$%^&*()_<|+>/';
+
+    const lower = "abcdefghijklmnopqrstuvwxyz";
+    const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numbers = "0123456789";
+    const symbols = "!@#$%^&*()_<|+>/";
     const allChars = lower + upper + numbers + symbols;
 
     // Ensure at least one character from each category
@@ -21,7 +37,7 @@ function App() {
       lower[Math.floor(Math.random() * lower.length)],
       upper[Math.floor(Math.random() * upper.length)],
       numbers[Math.floor(Math.random() * numbers.length)],
-      symbols[Math.floor(Math.random() * symbols.length)]
+      symbols[Math.floor(Math.random() * symbols.length)],
     ];
 
     // Fill the rest of the password with random choices
@@ -31,15 +47,17 @@ function App() {
 
     // Shuffle the password
     password = password.sort(() => Math.random() - 0.5);
-    
-    setPassword(password.join(''));
+
+    const newPassword = password.join("");
+    setPassword(newPassword);
+    setStrength(checkPasswordStrength(newPassword)); // Check strength after generating
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h1 className="text-2xl font-bold mb-6 text-center">Password Generator</h1>
-        
+
         <div className="mb-6">
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Password Length: {length}
@@ -79,6 +97,22 @@ function App() {
               >
                 Copy
               </button>
+            </div>
+
+            {/* Password Strength Indicator */}
+            <p className="mt-2 text-sm font-semibold" style={{ color: strength.color }}>
+              Strength: {strength.label}
+            </p>
+
+            {/* Visual Strength Bar */}
+            <div className="relative w-full h-2 mt-2 bg-gray-300 rounded">
+              <div
+                className="h-2 rounded transition-all duration-300"
+                style={{
+                  width: strength.label === "Weak" ? "33%" : strength.label === "Medium" ? "66%" : "100%",
+                  backgroundColor: strength.color,
+                }}
+              ></div>
             </div>
           </div>
         )}
