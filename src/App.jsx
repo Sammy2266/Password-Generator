@@ -1,6 +1,5 @@
 import { useState } from "react";
-import ThemeToggle from "./ThemeToggle";
-import PasswordStrengthChecker from "./PasswordStrengthChecker"; // Import Strength Checker
+import ThemeToggle from "./ThemeToggle"; // Import the toggle component
 
 function App() {
   const [password, setPassword] = useState("");
@@ -38,7 +37,7 @@ function App() {
       <div className="bg-gray-100 dark:bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-md">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Password Generator</h1>
-          <ThemeToggle />
+          <ThemeToggle /> {/* Add Theme Toggle Here */}
         </div>
 
         <div className="mb-6">
@@ -81,7 +80,6 @@ function App() {
                 Copy
               </button>
             </div>
-            <PasswordStrengthChecker password={password} /> {/* Add Strength Checker Here */}
           </div>
         )}
       </div>
