@@ -12,26 +12,69 @@
         document.documentElement.classList.add("dark");
       }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.21/vanta.net.min.js"></script>
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      #background {
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+        z-index: -1;
+      }
+      .content {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        color: white;
+        font-size: 24px;
+        font-family: Arial, sans-serif;
+        padding-top: 20%;
+      }
+    </style>
   </head>
   <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+    <div id="background"></div>
     <div id="root"></div>
+    <script>
+      VANTA.NET({
+        el: "#background",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0x8e3252,
+        backgroundColor: 0x23153c,
+        points: 20,
+        maxDistance: 20,
+        spacing: 15
+      });
+    </script>
     <script type="module" src="/src/main.jsx"></script>
-    
     <a href="https://sammymacharia.vercel.app/" class="text-blue-500 dark:text-blue-300">
       Learn more about the developer
     </a>
     <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/67cff2596dbfc61916d4c578/1im24lblb';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+    <script type="text/javascript">
+      var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+      (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/67cff2596dbfc61916d4c578/1im24lblb';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+      })();
+    </script>
+    <!--End of Tawk.to Script-->
   </body>
 </html>
