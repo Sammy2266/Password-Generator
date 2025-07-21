@@ -27,14 +27,12 @@ A simple and secure password generator built using JavaScript, Python, HTML, and
 
  📝 Usage
 1. Select the desired password length.
-2. Choose complexity options (uppercase, numbers, symbols).
-3. Click "Generate" to create a new password.
-4. Copy and use your secure password!
+2. Click "Generate" to create a new password.
+3. Copy and use your secure password!
 
  💡 Future Improvements
 - Add password strength indicator
 - Save generated passwords securely
-- Dark mode support
 
  📜 License
 This project is licensed under the MIT License.
